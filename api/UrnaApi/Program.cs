@@ -11,11 +11,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<UrnaContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("UrnaContext"), b => b.MigrationsAssembly("UrnaBackend")));
 builder.Services.AddTransient<ICandidateService, CandidateService>();
+builder.Services.AddTransient<IVoteService, VoteService>();
 
 var mapperConfig = new MapperConfiguration(cfg => cfg.CreateMap<Candidate, CandidateDto>().ReverseMap());
 

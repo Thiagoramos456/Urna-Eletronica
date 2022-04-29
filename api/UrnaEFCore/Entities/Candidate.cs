@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UrnaEFCore.Entities
 {
@@ -16,9 +16,11 @@ namespace UrnaEFCore.Entities
         public string? ViceCandidateName { get; set; }
 
         [Required]
-        public DateTime RegistryDate { get; set; }
+        public int? VoteNumber { get; set; }
 
         [Required]
-        public int? VoteNumber { get; set; }
+        public DateTime CreatedAt { get; set; }
+
+        public List<Vote>? Votes { get; set; }
     }
 }

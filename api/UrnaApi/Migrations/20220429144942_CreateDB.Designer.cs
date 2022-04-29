@@ -12,8 +12,8 @@ using UrnaEFCore;
 namespace UrnaBackend.Migrations
 {
     [DbContext(typeof(UrnaContext))]
-    [Migration("20220429014336_CreateCandidates")]
-    partial class CreateCandidates
+    [Migration("20220429144942_CreateDB")]
+    partial class CreateDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,12 +32,14 @@ namespace UrnaBackend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("RegistryDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("ViceCandidateName")
                         .IsRequired()
@@ -50,6 +52,45 @@ namespace UrnaBackend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Candidates", (string)null);
+                });
+
+            modelBuilder.Entity("UrnaEFCore.Entities.Vote", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CandidateId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CandidateId");
+
+                    b.ToTable("Votes", (string)null);
+                });
+
+            modelBuilder.Entity("UrnaEFCore.Entities.Vote", b =>
+                {
+                    b.HasOne("UrnaEFCore.Entities.Candidate", "Candidate")
+                        .WithMany("Votes")
+                        .HasForeignKey("CandidateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Candidate");
+                });
+
+            modelBuilder.Entity("UrnaEFCore.Entities.Candidate", b =>
+                {
+                    b.Navigation("Votes");
                 });
 #pragma warning restore 612, 618
         }
