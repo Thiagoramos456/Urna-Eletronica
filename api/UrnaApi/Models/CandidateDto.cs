@@ -1,9 +1,7 @@
 ﻿namespace UrnaBackend.Models
 {
-    public class CandidateModel
+    public class CandidateDto
     {
-        public int Id { get; set; }
-
         public string? FullName { get; set; }
 
         public string? ViceCandidateName { get; set; }

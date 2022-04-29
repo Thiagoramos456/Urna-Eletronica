@@ -1,7 +1,10 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using UrnaBackend.Models;
 using UrnaBackend.Services;
 using UrnaBackend.Services.Interfaces;
 using UrnaEFCore;
+using UrnaEFCore.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,8 +15,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<UrnaContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("UrnaContext"), b => b.MigrationsAssembly("UrnaBackend")));
-builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddTransient<ICandidateService, CandidateService>();
+
+var mapperConfig = new MapperConfiguration(cfg => cfg.CreateMap<Candidate, CandidateDto>().ReverseMap());
+
+IMapper mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
 
 var app = builder.Build();
 

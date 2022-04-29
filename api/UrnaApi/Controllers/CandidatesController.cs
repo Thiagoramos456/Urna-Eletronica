@@ -26,10 +26,17 @@ namespace UrnaApi.Controllers
         }
 
         [HttpGet]
-        public async Task<List<CandidateModel>> Get()
+        public async Task<List<CandidateDto>> Get()
         {
             var candidates = await _candidatesService.GetCandidates();
             return candidates;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateCandidate([FromBody] CandidateDto candidate)
+        {
+            await _candidatesService.AddCandidate(candidate);
+            return Ok();
         }
     }
 }
