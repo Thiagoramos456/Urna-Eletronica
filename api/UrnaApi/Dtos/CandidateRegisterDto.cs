@@ -1,8 +1,8 @@
 ﻿using UrnaEFCore.Entities;
 
-namespace UrnaBackend.Models
+namespace UrnaBackend.Dtos
 {
-    public class CandidateDto
+    public class CandidateRegisterDto
     {
         public int Id { get; set; }
 
@@ -14,5 +14,6 @@ namespace UrnaBackend.Models
 
         public int? VoteNumber { get; set; }
 
+        public List<Vote>? Votes { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using UrnaBackend.Models;
+using UrnaBackend.Dtos;
 using UrnaBackend.Services;
 using UrnaBackend.Services.Interfaces;
 using UrnaEFCore;
@@ -17,7 +17,11 @@ builder.Services.AddDbContext<UrnaContext>(options => options.UseSqlServer(build
 builder.Services.AddTransient<ICandidateService, CandidateService>();
 builder.Services.AddTransient<IVoteService, VoteService>();
 
-var mapperConfig = new MapperConfiguration(cfg => cfg.CreateMap<Candidate, CandidateDto>().ReverseMap());
+var mapperConfig = new MapperConfiguration(cfg =>
+{
+    cfg.CreateMap<Candidate, CandidateRegisterDto>().ReverseMap();
+    cfg.CreateMap<Candidate, CandidateDashboardDto>().ReverseMap();
+});
 
 IMapper mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);

@@ -1,10 +1,10 @@
-﻿using UrnaBackend.Models;
+﻿using UrnaBackend.Dtos;
 
 namespace UrnaBackend.Services.Interfaces
 {
     public interface IVoteService
     {
-        public Task<List<CandidateDto>> GetVotes();
+        public Task<List<CandidateDashboardDto>> GetVotes();
         public Task AddVote(int candidateId);
     }
 }

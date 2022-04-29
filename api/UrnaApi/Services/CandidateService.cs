@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using UrnaBackend.Models;
+using UrnaBackend.Dtos;
 using UrnaBackend.Services.Interfaces;
 using UrnaEFCore;
 using UrnaEFCore.Entities;
@@ -19,17 +19,17 @@ namespace UrnaBackend.Services
             _mapper = mapper;
         }
 
-        public async Task AddCandidate(CandidateDto candidate)
+        public async Task AddCandidate(CandidateRegisterDto candidate)
         {
             var mappedCandidate = _mapper.Map<Candidate>(candidate);
             _dbContext.Candidates.Add(mappedCandidate);
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<List<CandidateDto>> GetCandidates()
+        public async Task<List<CandidateRegisterDto>> GetCandidates()
         {
             var candidates = await _dbContext.Candidates.ToListAsync();
-            var mappedModelCandidates = candidates.Select(candidate => _mapper.Map<CandidateDto>(candidate));
+            var mappedModelCandidates = candidates.Select(candidate => _mapper.Map<CandidateRegisterDto>(candidate));
             return mappedModelCandidates.ToList();
         }
     }

@@ -1,4 +1,4 @@
-﻿namespace UrnaBackend.Models
+﻿namespace UrnaBackend.Dtos
 {
     public class VoteDto
     {

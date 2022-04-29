@@ -1,11 +1,11 @@
-﻿using UrnaBackend.Models;
+﻿using UrnaBackend.Dtos;
 using UrnaEFCore.Entities;
 
 namespace UrnaBackend.Services.Interfaces
 {
     public interface ICandidateService
     {
-        public Task<List<CandidateDto>> GetCandidates();
-        public Task AddCandidate(CandidateDto candidate);
+        public Task<List<CandidateRegisterDto>> GetCandidates();
+        public Task AddCandidate(CandidateRegisterDto candidate);
     }
 }

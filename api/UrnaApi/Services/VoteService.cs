@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using UrnaBackend.Models;
+using UrnaBackend.Dtos;
 using UrnaBackend.Services.Interfaces;
 using UrnaEFCore;
 using UrnaEFCore.Entities;
@@ -10,10 +10,12 @@ namespace UrnaBackend.Services
     public class VoteService : IVoteService
     {
         private readonly UrnaContext _dbContext;
+        private readonly IMapper _mapper;
 
-        public VoteService(UrnaContext dbContext)
+        public VoteService(UrnaContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
+            _mapper = mapper;
         }
 
         public async Task AddVote(int votedNumber)
@@ -25,9 +27,19 @@ namespace UrnaBackend.Services
             await _dbContext.SaveChangesAsync();
         }
 
-        public Task<List<CandidateDto>> GetVotes()
+        public async Task<List<CandidateDashboardDto>> GetVotes()
         {
-            throw new NotImplementedException();
+            var candidatesWithVotes = await _dbContext.Candidates.Include(c => c.Votes).ToListAsync();
+
+            var mappedModelCandidates = candidatesWithVotes.Select(candidate => _mapper.Map<CandidateDashboardDto>(candidate)).ToList();
+
+            foreach (var candidate in mappedModelCandidates)
+            {
+                candidate.VoteCount = candidatesWithVotes.FirstOrDefault(c => c.Id == candidate.Id)?.Votes?.Count;
+            }
+
+            return mappedModelCandidates.ToList();
+
         }
     }
 }
