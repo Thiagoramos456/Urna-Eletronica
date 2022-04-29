@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrnaApi", "UrnaApi.csproj", "{0C2EF054-00C9-482D-BB00-B728210F5D03}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrnaBackend", "UrnaBackend.csproj", "{0C2EF054-00C9-482D-BB00-B728210F5D03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrnaEFCore", "..\UrnaEFCore\UrnaEFCore.csproj", "{202ABFAB-C399-4FBA-8CFF-2BD345FEB381}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{0C2EF054-00C9-482D-BB00-B728210F5D03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C2EF054-00C9-482D-BB00-B728210F5D03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C2EF054-00C9-482D-BB00-B728210F5D03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{202ABFAB-C399-4FBA-8CFF-2BD345FEB381}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{202ABFAB-C399-4FBA-8CFF-2BD345FEB381}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{202ABFAB-C399-4FBA-8CFF-2BD345FEB381}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{202ABFAB-C399-4FBA-8CFF-2BD345FEB381}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
