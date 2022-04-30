@@ -10,7 +10,7 @@ export default function Header() {
             <Link to='/'>Votar</Link>
           </li>
           <li>
-            <Link to='/register'>Criar prefeito</Link>
+            <Link to='/register'>Cadastrar prefeito</Link>
           </li>
           <li>
             <Link to='/dashboard'>Dados</Link>
