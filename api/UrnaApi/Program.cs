@@ -7,6 +7,7 @@ using UrnaEFCore;
 using UrnaEFCore.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
+var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 // Add services to the container.
 
@@ -16,6 +17,17 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<UrnaContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("UrnaContext"), b => b.MigrationsAssembly("UrnaBackend")));
 builder.Services.AddTransient<ICandidateService, CandidateService>();
 builder.Services.AddTransient<IVoteService, VoteService>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000")
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        });
+});
 
 var mapperConfig = new MapperConfiguration(cfg =>
 {
@@ -27,6 +39,7 @@ IMapper mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -43,7 +56,10 @@ using (var scope = app.Services.CreateScope())
     context.Database.EnsureCreated();
 }
 
+
 app.UseHttpsRedirection();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthorization();
 

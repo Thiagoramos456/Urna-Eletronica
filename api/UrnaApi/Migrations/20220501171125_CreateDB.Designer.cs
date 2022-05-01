@@ -12,7 +12,7 @@ using UrnaEFCore;
 namespace UrnaBackend.Migrations
 {
     [DbContext(typeof(UrnaContext))]
-    [Migration("20220429144942_CreateDB")]
+    [Migration("20220501171125_CreateDB")]
     partial class CreateDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,6 +37,10 @@ namespace UrnaBackend.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");
 
+                    b.Property<int?>("ElectoralNumber")
+                        .IsRequired()
+                        .HasColumnType("int");
+
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -44,10 +48,6 @@ namespace UrnaBackend.Migrations
                     b.Property<string>("ViceCandidateName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("VoteNumber")
-                        .IsRequired()
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

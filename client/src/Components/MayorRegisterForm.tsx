@@ -5,10 +5,13 @@ import IMayorRegisterFormProps from './Interfaces/IMayorRegisterFormProps'
 export default function MayorRegisterForm({ candidateModel }: IMayorRegisterFormProps) {
 	const candidateService = new CandidateService();
 
-	const submitCandidate = () => candidateService.addCandidate(candidateModel);
+	const submitCandidate = (e: React.FormEvent<HTMLFormElement>) => { 
+    e.preventDefault();
+    candidateService.addCandidate(candidateModel) 
+  };
 
 	return (
-		<form onSubmit={ () => submitCandidate }>
+		<form onSubmit={ submitCandidate }>
         <div>
           <label htmlFor='name'>Nome completo:</label>
           <input
@@ -22,8 +25,8 @@ export default function MayorRegisterForm({ candidateModel }: IMayorRegisterForm
         <div>
           <label htmlFor='vice-name'>Nome do vice:</label>
           <input
-            onChange={(e) => candidateModel.viceName = e.target.value}
-						value={ candidateModel.viceName }
+            onChange={(e) => candidateModel.viceCandidateName = e.target.value}
+						value={ candidateModel.viceCandidateName }
             type='text'
             id='vice-name'
             required

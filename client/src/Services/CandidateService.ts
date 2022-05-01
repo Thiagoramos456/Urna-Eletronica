@@ -11,6 +11,7 @@ export default class CandidateService implements ICandidateService {
 	}
 
 	public async addCandidate(candidate: ICandidate): Promise<void> {
+		console.log(candidate);
 		await fetch(ApiEndpoints.CANDIDATES_ENDPOINT, {
 			method: 'POST',
 			headers: {

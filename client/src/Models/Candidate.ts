@@ -4,7 +4,7 @@ export default class Candidate implements ICandidate {
 	constructor(
 		public id?: number,
 		public fullName?: string,
-		public viceName?: string,
+		public viceCandidateName?: string,
 		public electoralNumber?: number
 	) {}
 }

@@ -1,6 +1,6 @@
 export default interface ICandidate {
 	id?: number;
 	fullName?: string;
-	viceName?: string;
+	viceCandidateName?: string;
 	electoralNumber?: number;
 }

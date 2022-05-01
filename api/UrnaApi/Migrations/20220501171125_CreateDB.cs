@@ -17,7 +17,7 @@ namespace UrnaBackend.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ViceCandidateName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    VoteNumber = table.Column<int>(type: "int", nullable: false),
+                    ElectoralNumber = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()")
                 },
                 constraints: table =>
