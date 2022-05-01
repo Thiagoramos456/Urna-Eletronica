@@ -4,13 +4,15 @@ import ICandidateFormState from '../Pages/Interfaces/ICandidateFormState';
 import CandidateService from '../Services/CandidateService';
 import ICandidateRegisterFormProps from './Interfaces/ICandidatRegisterFormProps'
 
+const DEFAULT_FORM = {
+  fullName: '',
+  viceFullName: '',
+  electoralNumber: 0
+}
+
 export default function CandidateRegisterForm({ refreshCandidateList }: ICandidateRegisterFormProps) {
 	
-  const [formState, setFormState] = React.useState<ICandidateFormState>({
-    fullName: '',
-    viceFullName: '',
-    electoralNumber: 0
-  });
+  const [formState, setFormState] = React.useState<ICandidateFormState>(DEFAULT_FORM);
 
 
 	const submitCandidate = async (e: React.FormEvent<HTMLFormElement>) => { 
@@ -22,6 +24,7 @@ export default function CandidateRegisterForm({ refreshCandidateList }: ICandida
     await candidateService.addCandidate(candidateModel);
 
     refreshCandidateList();
+    setFormState(DEFAULT_FORM);
   };
 
 	return (

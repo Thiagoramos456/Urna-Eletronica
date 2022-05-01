@@ -32,4 +32,15 @@ export default class CandidateService implements ICandidateService {
 			body: JSON.stringify(candidate)
 		});
 	}
+
+	public async voteCandidate(candidateId: number): Promise<void> {
+		await fetch(ApiEndpoints.VOTES_ENDPOINT, {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(candidateId)
+		});
+	}
 }
