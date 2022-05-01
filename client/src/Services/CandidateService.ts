@@ -5,13 +5,14 @@ import ICandidateService from './Interfaces/ICandidateService';
 
 export default class CandidateService implements ICandidateService {
 	public async getCandidates(): Promise<ICandidate[]> {
-		const response = await fetch(ApiEndpoints.CANDIDATES_ENDPOINT);
+		const response = await fetch(ApiEndpoints.VOTES_ENDPOINT);
+		console.log(response);
 		const candidates = await response.json();
+		
 		return candidates;
 	}
 
 	public async addCandidate(candidate: ICandidate): Promise<void> {
-		console.log(candidate);
 		await fetch(ApiEndpoints.CANDIDATES_ENDPOINT, {
 			method: 'POST',
 			headers: {

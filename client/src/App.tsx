@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Header from './Components/Header';
 import DashboardPage from './Pages/DashboardPage';
-import MayorRegisterPage from './Pages/MayorRegisterPage';
+import CandidateRegisterPage from './Pages/CandidateRegisterPage';
 import VotePage from './Pages/VotePage';
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<VotePage />} />
-        <Route path="/register" element={<MayorRegisterPage />} />
+        <Route path="/register" element={<CandidateRegisterPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
       </Routes>
     </div>
