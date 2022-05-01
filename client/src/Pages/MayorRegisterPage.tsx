@@ -1,23 +1,13 @@
-import React from 'react'
+import React from 'react';
+import MayorRegisterForm from '../Components/MayorRegisterForm';
+import Candidate from '../Models/Candidate';
 
 export default function MayorRegisterPage() {
-	return (
-		<main>
-			<form>
-				<div>
-					<label htmlFor="name">Nome completo:</label>
-					<input type="text" id="full-name" />
-				</div>
-				<div>
-					<label htmlFor="email">Nome do vice:</label>
-					<input type="text" id="vice-name" />
-				</div>
-				<div>
-					<label htmlFor="email">Número de votação (legenda):</label>
-					<input type="text" id="vote-number" />
-				</div>
-				<button type="submit">Cadastrar</button>
-			</form>
-		</main>
-	)
+  const [candidateModel] = React.useState(new Candidate());
+
+  return (
+    <main>
+      <MayorRegisterForm candidateModel={ candidateModel } />
+    </main>
+  );
 }
