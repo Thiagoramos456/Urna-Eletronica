@@ -6,13 +6,13 @@ using UrnaBackend.Services.Interfaces;
 
 namespace UrnaBackend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
-    public class VoteController : ControllerBase
+    public class VotesController : ControllerBase
     {
         private readonly IVoteService _voteService;
 
-        public VoteController(IVoteService voteService)
+        public VotesController(IVoteService voteService)
         {
             _voteService = voteService;
         }

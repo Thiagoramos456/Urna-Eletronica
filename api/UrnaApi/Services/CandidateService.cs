@@ -26,11 +26,16 @@ namespace UrnaBackend.Services
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<List<CandidateRegisterDto>> GetCandidates()
+        public async Task DeleteCandidate(int candidateId)
         {
-            var candidates = await _dbContext.Candidates.ToListAsync();
-            var mappedModelCandidates = candidates.Select(candidate => _mapper.Map<CandidateRegisterDto>(candidate));
-            return mappedModelCandidates.ToList();
+            var candidate = _dbContext.Candidates.FirstOrDefault((c => c.Id == candidateId));
+
+            if (candidate != null)
+            {
+                _dbContext.Candidates.Remove(candidate);
+            }
+
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

@@ -5,7 +5,7 @@ namespace UrnaBackend.Services.Interfaces
 {
     public interface ICandidateService
     {
-        public Task<List<CandidateRegisterDto>> GetCandidates();
+        public Task DeleteCandidate(int candidateId);
         public Task AddCandidate(CandidateRegisterDto candidate);
     }
 }

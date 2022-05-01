@@ -20,15 +20,14 @@ namespace UrnaApi.Controllers
             _candidatesService = candidatesService;
         }
 
-        [HttpGet]
-        public async Task<List<CandidateRegisterDto>> Get()
+        [HttpDelete]
+        public async Task Delete([FromBody] int candidateId)
         {
-            var candidates = await _candidatesService.GetCandidates();
-            return candidates;
+            await _candidatesService.DeleteCandidate(candidateId);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCandidate([FromBody] CandidateRegisterDto candidate)
+        public async Task<IActionResult> Post([FromBody] CandidateRegisterDto candidate)
         {
             await _candidatesService.AddCandidate(candidate);
             return Ok();
