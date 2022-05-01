@@ -7,5 +7,6 @@ namespace UrnaBackend.Services.Interfaces
     {
         public Task DeleteCandidate(int candidateId);
         public Task AddCandidate(CandidateRegisterDto candidate);
+        public CandidateUrnDto GetCandidateByElectoralNumber(int electoralNumber);
     }
 }

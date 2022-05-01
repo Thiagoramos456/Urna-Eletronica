@@ -33,6 +33,7 @@ var mapperConfig = new MapperConfiguration(cfg =>
 {
     cfg.CreateMap<Candidate, CandidateRegisterDto>().ReverseMap();
     cfg.CreateMap<Candidate, CandidateDashboardDto>().ReverseMap();
+    cfg.CreateMap<Candidate, CandidateUrnDto>().ReverseMap();
 });
 
 IMapper mapper = mapperConfig.CreateMapper();

@@ -37,5 +37,12 @@ namespace UrnaBackend.Services
 
             await _dbContext.SaveChangesAsync();
         }
+
+        public CandidateUrnDto GetCandidateByElectoralNumber(int electoralNumber)
+        {
+            var candidate = _dbContext.Candidates.FirstOrDefault((c => c.ElectoralNumber == electoralNumber));
+            var mappedCandidate = _mapper.Map<CandidateUrnDto>(candidate);
+            return mappedCandidate;
+        }
     }
 }

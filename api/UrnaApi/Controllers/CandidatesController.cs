@@ -20,6 +20,13 @@ namespace UrnaApi.Controllers
             _candidatesService = candidatesService;
         }
 
+        [HttpGet]
+        public CandidateUrnDto Get(int electoralNumber)
+        {
+            var candidate = _candidatesService.GetCandidateByElectoralNumber(electoralNumber);
+            return candidate;
+        }
+
         [HttpDelete]
         public async Task Delete([FromBody] int candidateId)
         {
