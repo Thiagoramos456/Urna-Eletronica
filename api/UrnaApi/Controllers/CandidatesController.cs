@@ -21,23 +21,32 @@ namespace UrnaApi.Controllers
         }
 
         [HttpGet]
-        public CandidateUrnDto Get(int electoralNumber)
+        public IActionResult Get(int electoralNumber)
         {
             var candidate = _candidatesService.GetCandidateByElectoralNumber(electoralNumber);
-            return candidate;
+
+            return candidate != null ? Ok(candidate) : NotFound("Candidato não encontrado");
         }
 
         [HttpDelete]
-        public async Task Delete([FromBody] int candidateId)
+        public async Task<IActionResult> Delete([FromBody] int candidateId)
         {
-            await _candidatesService.DeleteCandidate(candidateId);
+            var beenDeleted = await _candidatesService.DeleteCandidate(candidateId);
+
+            return beenDeleted ? Ok() : NotFound("O candidato com o ID enviado não foi encontrado");
         }
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CandidateRegisterDto candidate)
         {
-            await _candidatesService.AddCandidate(candidate);
-            return Ok();
+            if (candidate.ElectoralNumber < 10 || candidate.ElectoralNumber > 99)
+            {
+                return BadRequest("A legenda do candidato deve haver dois digitos");
+            }
+
+            var candidateAlreadyExists = await _candidatesService.AddCandidate(candidate);
+
+            return candidateAlreadyExists == true ? Unauthorized("O candidato com esta legenda já existe") : Ok();
         }
     }
 }

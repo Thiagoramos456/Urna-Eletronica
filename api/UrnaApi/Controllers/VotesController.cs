@@ -18,16 +18,17 @@ namespace UrnaBackend.Controllers
         }
 
         [HttpGet]
-        public async Task<List<CandidateDashboardDto>> Get(bool isSorted)
+        public async Task<IActionResult> Get(bool isSorted)
         {
             var candidates = await _voteService.GetVotes(isSorted);
-            return candidates;
+            return candidates != null ? Ok(candidates) : Unauthorized("Falha ao buscar os candidatos");
         }
 
         [HttpPost]
-        public async Task Post([FromBody] int candidateId)
+        public async Task<IActionResult> Post([FromBody] int candidateId)
         {
-            await _voteService.AddVote(candidateId);
+            var candidateExists = await _voteService.AddVote(candidateId);
+            return candidateExists == true ? Ok(candidateExists) : Unauthorized("O candidato que você está tentando votar não existe");
         }
     }
 }

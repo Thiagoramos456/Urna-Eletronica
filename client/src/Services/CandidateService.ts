@@ -6,8 +6,6 @@ import ICandidateService from './Interfaces/ICandidateService';
 export default class CandidateService implements ICandidateService {
 	public async getCandidates(isSorted: boolean = false): Promise<ICandidate[]> {
 		const response = await fetch(ApiEndpoints.VOTES_ENDPOINT + `${isSorted ? '?isSorted=true' : ''}`);
-		console.log(ApiEndpoints.VOTES_ENDPOINT + `${isSorted ? 'true' : ''}`);
-		console.log(response);
 		
 		const candidates = await response.json();
 		
@@ -16,7 +14,6 @@ export default class CandidateService implements ICandidateService {
 
 	public async getCandidateByElectoralNumber(electoralNumber: number): Promise<ICandidate> {
 		const response = await fetch(ApiEndpoints.CANDIDATES_ENDPOINT + '?electoralNumber=' + electoralNumber);	
-		console.log(response);
 		
 		const candidate = await response.json();
 

@@ -19,24 +19,38 @@ namespace UrnaBackend.Services
             _mapper = mapper;
         }
 
-        public async Task AddCandidate(CandidateRegisterDto candidate)
+        public async Task<bool> AddCandidate(CandidateRegisterDto candidate)
         {
-            var mappedCandidate = _mapper.Map<Candidate>(candidate);
-            _dbContext.Candidates.Add(mappedCandidate);
-            await _dbContext.SaveChangesAsync();
+            var candidateAlreadyExists = _dbContext.Candidates.FirstOrDefault(c => c.ElectoralNumber == candidate.ElectoralNumber);
+
+            if (candidateAlreadyExists != null)
+            {
+                return true;
+            } else
+            {
+                var mappedCandidate = _mapper.Map<Candidate>(candidate);
+                _dbContext.Candidates.Add(mappedCandidate);
+                await _dbContext.SaveChangesAsync();
+                return false;
+            }
+
+
         }
 
-        public async Task DeleteCandidate(int candidateId)
+        public async Task<bool> DeleteCandidate(int candidateId)
         {
             var candidate = _dbContext.Candidates.FirstOrDefault((c => c.Id == candidateId));
 
-            if (candidate != null)
+            if (candidate == null)
             {
-                _dbContext.Candidates.Remove(candidate);
+                return false;
             }
 
+            _dbContext.Candidates.Remove(candidate);
             await _dbContext.SaveChangesAsync();
+            return true;
         }
+
 
         public CandidateUrnDto GetCandidateByElectoralNumber(int electoralNumber)
         {

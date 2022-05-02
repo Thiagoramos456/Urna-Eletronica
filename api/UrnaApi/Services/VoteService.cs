@@ -18,13 +18,21 @@ namespace UrnaBackend.Services
             _mapper = mapper;
         }
 
-        public async Task AddVote(int electoralNumber)
+        public async Task<bool> AddVote(int electoralNumber)
         {
             var candidate = await _dbContext.Candidates.FirstOrDefaultAsync(c => c.ElectoralNumber == electoralNumber);
+
+            if (candidate == null)
+            {
+                return false;
+            }
+
             var vote = new Vote { Candidate = candidate };
 
             await _dbContext.Votes.AddAsync(vote);
             await _dbContext.SaveChangesAsync();
+
+            return true;
         }
 
         public async Task<List<CandidateDashboardDto>> GetVotes(bool isSorted)
