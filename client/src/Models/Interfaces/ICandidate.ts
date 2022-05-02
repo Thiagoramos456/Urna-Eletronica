@@ -4,4 +4,5 @@ export default interface ICandidate {
 	viceCandidateName?: string;
 	electoralNumber?: number;
 	voteCount?: number;
+	party?: string;
 }

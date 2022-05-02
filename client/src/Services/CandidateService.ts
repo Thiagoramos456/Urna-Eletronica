@@ -15,7 +15,9 @@ export default class CandidateService implements ICandidateService {
 	}
 
 	public async getCandidateByElectoralNumber(electoralNumber: number): Promise<ICandidate> {
-		const response = await fetch(ApiEndpoints.CANDIDATES_ENDPOINT + '?electoralNumber=' + electoralNumber);
+		const response = await fetch(ApiEndpoints.CANDIDATES_ENDPOINT + '?electoralNumber=' + electoralNumber);	
+		console.log(response);
+		
 		const candidate = await response.json();
 
 		return candidate;
@@ -36,6 +38,8 @@ export default class CandidateService implements ICandidateService {
 	
 
 	public async addCandidate(candidate: ICandidate): Promise<void> {
+		console.log(candidate);
+		
 		await fetch(ApiEndpoints.CANDIDATES_ENDPOINT, {
 			method: 'POST',
 			headers: {

@@ -7,7 +7,8 @@ import ICandidateRegisterFormProps from './Interfaces/ICandidatRegisterFormProps
 const DEFAULT_FORM = {
   fullName: '',
   viceFullName: '',
-  electoralNumber: 0
+  party:'',
+  electoralNumber: 0,
 }
 
 export default function CandidateRegisterForm({ refreshCandidateList }: ICandidateRegisterFormProps) {
@@ -19,8 +20,8 @@ export default function CandidateRegisterForm({ refreshCandidateList }: ICandida
     e.preventDefault();
     const candidateService = new CandidateService();
   
-    const { fullName, viceFullName, electoralNumber } = formState;
-    const candidateModel = new Candidate(fullName, viceFullName, electoralNumber);
+    const { fullName, viceFullName, electoralNumber, party } = formState;
+    const candidateModel = new Candidate(fullName, viceFullName, party ,electoralNumber);
     await candidateService.addCandidate(candidateModel);
 
     refreshCandidateList();
@@ -50,6 +51,18 @@ export default function CandidateRegisterForm({ refreshCandidateList }: ICandida
 						value={ formState.viceFullName }
             type='text'
             id='vice-name'
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor='party'>Partido:</label>
+          <input
+            onChange={(e) => {
+              setFormState({ ...formState, party: e.target.value })
+            }}
+						value={ formState.party }
+            type='text'
+            id='party'
             required
           />
         </div>

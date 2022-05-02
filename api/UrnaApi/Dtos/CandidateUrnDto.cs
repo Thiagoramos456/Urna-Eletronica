@@ -9,5 +9,7 @@ namespace UrnaBackend.Dtos
         public string? FullName { get; set; }
 
         public string? ViceCandidateName { get; set; }
+
+        public string? Party { get; set; }
     }
 }

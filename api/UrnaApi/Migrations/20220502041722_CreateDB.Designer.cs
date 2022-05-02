@@ -12,7 +12,7 @@ using UrnaEFCore;
 namespace UrnaBackend.Migrations
 {
     [DbContext(typeof(UrnaContext))]
-    [Migration("20220501171125_CreateDB")]
+    [Migration("20220502041722_CreateDB")]
     partial class CreateDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,10 @@ namespace UrnaBackend.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Party")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

@@ -18,6 +18,7 @@ namespace UrnaBackend.Migrations
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ViceCandidateName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ElectoralNumber = table.Column<int>(type: "int", nullable: false),
+                    Party = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()")
                 },
                 constraints: table =>

@@ -43,6 +43,10 @@ namespace UrnaBackend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Party")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ViceCandidateName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

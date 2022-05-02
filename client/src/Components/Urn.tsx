@@ -92,11 +92,11 @@ export default function Urn() {
           <div className='urn-data after-selected'>
             <span>Nome: {selectedCandidate?.fullName}</span>
           </div>
-          <div className='urn-data after-selected'>
-            <span>Partido: {}</span>
+					<div className='urn-data after-selected'>
+            <span>Vice-Prefeito: {selectedCandidate?.viceCandidateName}</span>
           </div>
           <div className='urn-data after-selected'>
-            <span>Vice-Prefeito: {selectedCandidate?.viceCandidateName}</span>
+            <span>Partido: {selectedCandidate?.party}</span>
           </div>
         </div>
       </div>
