@@ -4,7 +4,7 @@ namespace UrnaBackend.Services.Interfaces
 {
     public interface IVoteService
     {
-        public Task<List<CandidateDashboardDto>> GetVotes();
+        public Task<List<CandidateDashboardDto>> GetVotes(bool isSorted);
         public Task AddVote(int candidateId);
     }
 }

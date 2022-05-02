@@ -6,12 +6,13 @@ import CandidateService from '../Services/CandidateService';
 
 export default function CandidateRegisterPage() {
   const [allCandidates, setAllCandidates] = React.useState<ICandidate[]>([]);
-  const { getCandidates } = new CandidateService();
 
   const refreshCandidateList = useCallback(async () => {
+    const { getCandidates } = new CandidateService();
+
     const candidates = await getCandidates();    
     setAllCandidates(candidates);
-  }, [getCandidates])
+  }, [])
 
   
   useEffect(() => { (async () => { await refreshCandidateList() })(); }, [refreshCandidateList])

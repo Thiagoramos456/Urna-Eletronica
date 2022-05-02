@@ -18,9 +18,9 @@ namespace UrnaBackend.Controllers
         }
 
         [HttpGet]
-        public async Task<List<CandidateDashboardDto>> Get()
+        public async Task<List<CandidateDashboardDto>> Get(bool isSorted)
         {
-            var candidates = await _voteService.GetVotes();
+            var candidates = await _voteService.GetVotes(isSorted);
             return candidates;
         }
 

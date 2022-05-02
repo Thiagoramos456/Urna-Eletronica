@@ -5,6 +5,7 @@ export default class Candidate implements ICandidate {
 		public fullName: string = '',
 		public viceCandidateName: string = '',
 		public electoralNumber: number = 0,
+		public voteCount: number = 0,
 		public id: number = 0
 	) {}
 }
