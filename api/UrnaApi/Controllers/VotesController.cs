@@ -25,10 +25,10 @@ namespace UrnaBackend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] int candidateId)
+        public async Task<IActionResult> Post([FromBody] int electoralNumber)
         {
-            var candidateExists = await _voteService.AddVote(candidateId);
-            return candidateExists == true ? Ok(candidateExists) : Unauthorized("O candidato que você está tentando votar não existe");
+            var candidateExists = await _voteService.AddVote(electoralNumber);
+            return candidateExists == true ? Ok() : NotFound("O candidato que você está tentando votar não existe");
         }
     }
 }

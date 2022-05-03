@@ -23,9 +23,7 @@ namespace UrnaBackend.Services
             var candidate = await _dbContext.Candidates.FirstOrDefaultAsync(c => c.ElectoralNumber == electoralNumber);
 
             if (candidate == null)
-            {
                 return false;
-            }
 
             var vote = new Vote { Candidate = candidate };
 

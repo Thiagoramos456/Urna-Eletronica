@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using UrnaBackend.Dtos;
 using UrnaBackend.Services.Interfaces;
 using UrnaEFCore;
@@ -11,7 +10,7 @@ namespace UrnaBackend.Services
     {
         private readonly UrnaContext _dbContext;
         private readonly IMapper _mapper;
-        
+
 
         public CandidateService(UrnaContext dbContext, IMapper mapper)
         {
@@ -24,17 +23,12 @@ namespace UrnaBackend.Services
             var candidateAlreadyExists = _dbContext.Candidates.FirstOrDefault(c => c.ElectoralNumber == candidate.ElectoralNumber);
 
             if (candidateAlreadyExists != null)
-            {
                 return true;
-            } else
-            {
-                var mappedCandidate = _mapper.Map<Candidate>(candidate);
-                _dbContext.Candidates.Add(mappedCandidate);
-                await _dbContext.SaveChangesAsync();
-                return false;
-            }
 
-
+            var mappedCandidate = _mapper.Map<Candidate>(candidate);
+            _dbContext.Candidates.Add(mappedCandidate);
+            await _dbContext.SaveChangesAsync();
+            return false;
         }
 
         public async Task<bool> DeleteCandidate(int candidateId)
@@ -42,9 +36,7 @@ namespace UrnaBackend.Services
             var candidate = _dbContext.Candidates.FirstOrDefault((c => c.Id == candidateId));
 
             if (candidate == null)
-            {
                 return false;
-            }
 
             _dbContext.Candidates.Remove(candidate);
             await _dbContext.SaveChangesAsync();

@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
+import ErrorResponse from '../ErrorResponse';
 import ICandidate from '../Models/Interfaces/ICandidate';
 import CandidateService from '../Services/CandidateService';
 
@@ -7,9 +8,13 @@ export default function DashboardPage() {
 
   const refreshCandidateList = useCallback(async () => {
     const { getCandidates } = new CandidateService();
-
     const candidates = await getCandidates(true);
-    setAllCandidates(candidates);
+
+    if (candidates instanceof ErrorResponse) {
+      return alert(candidates.ErrorMessage);
+    }
+
+    setAllCandidates(candidates as ICandidate[]);
   }, []);
 
   useEffect(() => {

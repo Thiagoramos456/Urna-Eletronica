@@ -1,4 +1,5 @@
 import React from 'react'
+import { toast } from 'react-toastify';
 import deleteIcon from '../Images/Icons/delete.png';
 import ICandidate from '../Models/Interfaces/ICandidate'
 import CandidateService from '../Services/CandidateService';
@@ -12,6 +13,7 @@ export default function CandidateList({ allCandidates, refreshCandidateList } : 
 			const { deleteCandidate } = new CandidateService();
 			await deleteCandidate(candidateId);
 			refreshCandidateList();
+			toast.warning("Candidato removido.");
 		}
 	}
 	return (

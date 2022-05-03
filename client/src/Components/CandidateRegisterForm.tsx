@@ -1,4 +1,6 @@
 import React from 'react'
+import { toast } from 'react-toastify';
+import ErrorResponse from '../ErrorResponse';
 import Candidate from '../Models/Candidate';
 import ICandidateFormState from '../Pages/Interfaces/ICandidateFormState';
 import CandidateService from '../Services/CandidateService';
@@ -8,7 +10,7 @@ const DEFAULT_FORM = {
   fullName: '',
   viceFullName: '',
   party:'',
-  electoralNumber: 0,
+  electoralNumber: 10,
 }
 
 export default function CandidateRegisterForm({ refreshCandidateList }: ICandidateRegisterFormProps) {
@@ -22,10 +24,16 @@ export default function CandidateRegisterForm({ refreshCandidateList }: ICandida
   
     const { fullName, viceFullName, electoralNumber, party } = formState;
     const candidateModel = new Candidate(fullName, viceFullName, party ,electoralNumber);
-    await candidateService.addCandidate(candidateModel);
+    const response = await candidateService.addCandidate(candidateModel);
+
+    if (response instanceof ErrorResponse) {
+      return toast.error(response.ErrorMessage);
+    }
 
     refreshCandidateList();
     setFormState(DEFAULT_FORM);
+    toast.success('Candidato cadastrado com sucesso!');
+
   };
 
 	return (
@@ -75,6 +83,8 @@ export default function CandidateRegisterForm({ refreshCandidateList }: ICandida
 						value={ formState.electoralNumber }
             type='number'
             id='electoral-number'
+            min="10"
+            max="99"
             required
           />
         </div>
