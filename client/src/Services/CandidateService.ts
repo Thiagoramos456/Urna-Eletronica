@@ -19,8 +19,9 @@ export default class CandidateService implements ICandidateService {
 	}
 
 	public async getCandidateByElectoralNumber(electoralNumber: number): Promise<ICandidate | IErrorResponse> {
+		console.log(electoralNumber);
 		const response = await fetch(ApiEndpoints.CANDIDATES_ENDPOINT + '?electoralNumber=' + electoralNumber);	
-		console.log(response.status);
+		
 		
 		if (response.status === 404) { 
 			return new ErrorResponse('Candidato não encontrado');
@@ -45,8 +46,6 @@ export default class CandidateService implements ICandidateService {
 			return new ErrorResponse('Candidato não encontrado');
 		}
 	}
-
-	
 
 	public async addCandidate(candidate: ICandidate): Promise<void | IErrorResponse> {
 		const response = await fetch(ApiEndpoints.CANDIDATES_ENDPOINT, {
@@ -75,7 +74,6 @@ export default class CandidateService implements ICandidateService {
 			},
 			body: JSON.stringify(electoralNumber)
 		});
-		console.log(response.status);
 		
 		if (response.status === 404) {
 			return new ErrorResponse('Insira um número de um eleitor existente');	
