@@ -16,7 +16,10 @@ namespace UrnaEFCore.Entities
         public string? ViceCandidateName { get; set; }
 
         [Required]
-        public int? VoteNumber { get; set; }
+        public int? ElectoralNumber { get; set; }
+
+        [Required]
+        public string? Party { get; set; }
 
         [Required]
         public DateTime CreatedAt { get; set; }

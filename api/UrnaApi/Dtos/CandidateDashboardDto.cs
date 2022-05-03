@@ -12,7 +12,9 @@ namespace UrnaBackend.Dtos
 
         public DateTime CreatedAt { get; set; }
 
-        public int? VoteNumber { get; set; }
+        public int? ElectoralNumber { get; set; }
+
+        public string? Party { get; set; }
 
         public int? VoteCount { get; set; }
     }

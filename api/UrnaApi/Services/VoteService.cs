@@ -18,16 +18,22 @@ namespace UrnaBackend.Services
             _mapper = mapper;
         }
 
-        public async Task AddVote(int votedNumber)
+        public async Task<bool> AddVote(int electoralNumber)
         {
-            var candidate = await _dbContext.Candidates.FirstOrDefaultAsync(c => c.VoteNumber == votedNumber);
+            var candidate = await _dbContext.Candidates.FirstOrDefaultAsync(c => c.ElectoralNumber == electoralNumber);
+
+            if (candidate == null)
+                return false;
+
             var vote = new Vote { Candidate = candidate };
 
             await _dbContext.Votes.AddAsync(vote);
             await _dbContext.SaveChangesAsync();
+
+            return true;
         }
 
-        public async Task<List<CandidateDashboardDto>> GetVotes()
+        public async Task<List<CandidateDashboardDto>> GetVotes(bool isSorted)
         {
             var candidatesWithVotes = await _dbContext.Candidates.Include(c => c.Votes).ToListAsync();
 
@@ -38,7 +44,8 @@ namespace UrnaBackend.Services
                 candidate.VoteCount = candidatesWithVotes.FirstOrDefault(c => c.Id == candidate.Id)?.Votes?.Count;
             }
 
-            return mappedModelCandidates.ToList();
+            return isSorted ? mappedModelCandidates.OrderByDescending(c => c.VoteCount).ToList()
+                            : mappedModelCandidates.ToList();
 
         }
     }

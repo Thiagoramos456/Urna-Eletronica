@@ -5,7 +5,8 @@ namespace UrnaBackend.Services.Interfaces
 {
     public interface ICandidateService
     {
-        public Task<List<CandidateRegisterDto>> GetCandidates();
-        public Task AddCandidate(CandidateRegisterDto candidate);
+        public Task<bool> DeleteCandidate(int candidateId);
+        public Task<bool> AddCandidate(CandidateRegisterDto candidate);
+        public CandidateUrnDto GetCandidateByElectoralNumber(int electoralNumber);
     }
 }

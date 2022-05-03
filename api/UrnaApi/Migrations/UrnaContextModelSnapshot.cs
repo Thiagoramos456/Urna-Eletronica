@@ -35,17 +35,21 @@ namespace UrnaBackend.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");
 
+                    b.Property<int?>("ElectoralNumber")
+                        .IsRequired()
+                        .HasColumnType("int");
+
                     b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Party")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ViceCandidateName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("VoteNumber")
-                        .IsRequired()
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
