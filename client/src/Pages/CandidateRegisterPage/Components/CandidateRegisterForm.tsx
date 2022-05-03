@@ -1,10 +1,10 @@
 import React from 'react'
 import { toast } from 'react-toastify';
-import ErrorResponse from '../ErrorResponse';
-import Candidate from '../Models/Candidate';
-import ICandidateFormState from '../Pages/Interfaces/ICandidateFormState';
-import CandidateService from '../Services/CandidateService';
-import ICandidateRegisterFormProps from './Interfaces/ICandidatRegisterFormProps'
+import ErrorResponse from '../../../ErrorResponse';
+import Candidate from '../../../Models/Candidate';
+import ICandidateFormState from '../Interfaces/ICandidateFormState';
+import CandidateService from '../../../Services/CandidateService';
+import ICandidateRegisterFormProps from '../../../Components/Interfaces/ICandidatRegisterFormProps'
 
 const DEFAULT_FORM = {
   fullName: '',

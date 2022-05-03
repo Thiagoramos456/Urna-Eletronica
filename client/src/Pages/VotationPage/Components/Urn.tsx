@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect } from 'react';
-import ErrorResponse from '../ErrorResponse';
-import ICandidate from '../Models/Interfaces/ICandidate';
-import CandidateService from '../Services/CandidateService';
-import { Digits, ElectoralNumber } from './Types/UrnTypes';
+import ErrorResponse from '../../../ErrorResponse';
+import ICandidate from '../../../Models/Interfaces/ICandidate';
+import CandidateService from '../../../Services/CandidateService';
+import { Digits, ElectoralNumber } from '../../../Components/Types/UrnTypes';
 import { toast } from 'react-toastify';
 
-import './Styles/urn.css';
-import toggleInfoDisplay from '../Utils/toggleUrnCandidatesInfo';
+import '../Styles/urn.css';
+import toggleInfoDisplay from '../../../Utils/toggleUrnCandidatesInfo';
 
 const DIGITS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 const TOTAL_DIGIT_SLOTS = 2;

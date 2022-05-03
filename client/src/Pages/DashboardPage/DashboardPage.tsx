@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
-import ErrorResponse from '../ErrorResponse';
-import ICandidate from '../Models/Interfaces/ICandidate';
-import CandidateService from '../Services/CandidateService';
+import ErrorResponse from '../../ErrorResponse';
+import ICandidate from '../../Models/Interfaces/ICandidate';
+import CandidateService from '../../Services/CandidateService';
 
 export default function DashboardPage() {
   const [allCandidates, setAllCandidates] = React.useState<ICandidate[]>([]);
