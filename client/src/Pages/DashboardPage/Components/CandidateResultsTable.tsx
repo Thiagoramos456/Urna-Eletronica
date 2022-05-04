@@ -9,22 +9,26 @@ export default function CandidateResultsTable({
     <div>
       {allCandidates && allCandidates.length && (
         <table className='candidates-table'>
-          <tr>
-            <th>Nome completo</th>
-            <th>Vice</th>
-            <th>Nº de votação</th>
-            <th>Partido</th>
-          </tr>
-          {allCandidates.map((candidate: ICandidate) => {
-            return (
-              <tr>
-                <td>{candidate.fullName}</td>
-                <td>{candidate.electoralNumber}</td>
-                <td>{candidate.party}</td>
-                <td>{candidate.voteCount}</td>
-              </tr>
-            );
-          })}
+          <thead>
+            <tr>
+              <th>Nome completo</th>
+              <th>Vice</th>
+              <th>Nº de votação</th>
+              <th>Partido</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allCandidates.map((candidate: ICandidate) => {
+              return (
+                <tr>
+                  <td>{candidate.fullName}</td>
+                  <td>{candidate.electoralNumber}</td>
+                  <td>{candidate.voteCount}</td>
+                  <td>{candidate.party}</td>
+                </tr>
+              );
+            })}
+          </tbody>
         </table>
       )}
     </div>

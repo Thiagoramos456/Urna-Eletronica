@@ -22,38 +22,42 @@ export default function CandidateList({
 
   return (
     <div>
-      <h2 className="candidate-list-title">Lista de Candidatos</h2>
+      <h2 className='candidate-list-title'>Lista de Candidatos</h2>
       {allCandidates.length ? (
         <table className='candidates-table'>
-          <tr>
-            <th>Nome completo</th>
-            <th>Vice</th>
-            <th>Nº de votação</th>
-            <th>Partido</th>
-          </tr>
-          {allCandidates.map((candidate: ICandidate) => {
-            return (
-              <tr>
-                <td>{candidate.fullName}</td>
-                <td>{candidate.viceCandidateName}</td>
-                <td>{candidate.electoralNumber}</td>
-                <td>{candidate.party}</td>
-                <td>
-                  <button
-                    className='delete-btn'
-                    onClick={() => {
-                      removeCandidate(candidate.id);
-                    }}
-                  >
-                    <img alt='Deletar Candidato' src={deleteIcon}></img>
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
+          <thead>
+            <tr>
+              <th>Nome completo</th>
+              <th>Vice</th>
+              <th>Nº de votação</th>
+              <th>Partido</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allCandidates.map((candidate: ICandidate) => {
+              return (
+                <tr key={candidate.id}>
+                  <td>{candidate.fullName}</td>
+                  <td>{candidate.viceCandidateName}</td>
+                  <td>{candidate.electoralNumber}</td>
+                  <td>{candidate.party}</td>
+                  <td>
+                    <button
+                      className='delete-btn'
+                      onClick={() => {
+                        removeCandidate(candidate.id);
+                      }}
+                    >
+                      <img alt='Deletar Candidato' src={deleteIcon}></img>
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
         </table>
       ) : (
-        <h2 className="no-candidate-message">Não há candidatos.</h2>
+        <h2 className='no-candidate-message'>Não há candidatos.</h2>
       )}
     </div>
   );
