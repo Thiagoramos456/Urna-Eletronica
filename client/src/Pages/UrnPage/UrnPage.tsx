@@ -9,7 +9,10 @@ import ICandidate from '../../Models/Interfaces/ICandidate';
 import './Styles/urn.css';
 import SoundHelper from './Helpers/SoundHelper';
 
+
 export default function Urn() {
+  document.title = "Urna";
+  
   const [selectedCandidate, setSelectedCandidate] = useState<ICandidate>();
 
   const [firstDigit, setFirstDigit] = useState<number>();
@@ -89,7 +92,7 @@ export default function Urn() {
       eraseAll();
       return;
     }
-    
+
     if (electoralNumber || electoralNumber === 0) {
       return toast.error(
         'Para votar branco, o número de votação deve estar vazio.'

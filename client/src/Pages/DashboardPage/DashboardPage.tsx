@@ -13,7 +13,10 @@ import '../../Styles/candidate_list.css';
 
 ChartJS.register(...registerables);
 
+
 export default function DashboardPage() {
+  document.title = "Dashboard";
+  
   const [allCandidates, setAllCandidates] = React.useState<ICandidate[]>([]);
 
   const refreshCandidateList = useCallback(async () => {

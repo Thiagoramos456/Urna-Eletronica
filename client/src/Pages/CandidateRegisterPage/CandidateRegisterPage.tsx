@@ -5,7 +5,10 @@ import ErrorResponse from '../../ErrorResponse';
 import ICandidate from '../../Models/Interfaces/ICandidate';
 import CandidateService from '../../Services/CandidateService';
 
+
 export default function CandidateRegisterPage() {
+  document.title = "Candidatos";
+  
   const [allCandidates, setAllCandidates] = React.useState<ICandidate[]>([]);
 
   const refreshCandidateList = useCallback(async () => {
@@ -26,7 +29,7 @@ export default function CandidateRegisterPage() {
   return (
     <main>
       <CandidateRegisterForm refreshCandidateList={refreshCandidateList} />
-      <hr />
+      <hr className="" />
       <CandidateList refreshCandidateList={refreshCandidateList} allCandidates={ allCandidates } />
     </main>
   );
