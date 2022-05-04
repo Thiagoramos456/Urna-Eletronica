@@ -29,6 +29,33 @@ namespace UrnaEFCore
             modelBuilder.Entity<Vote>()
                 .Property(v => v.CreatedAt)
                 .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<Candidate>().HasData(
+                new Candidate
+                {
+                    Id = 1,
+                    FullName = "Abel da Silva",
+                    ViceCandidateName = "Vorli Chiquio",
+                    Party = "PT",
+                    ElectoralNumber = 91
+                },
+                new Candidate
+                {
+                    Id = 2,
+                    FullName = "Nelson Back",
+                    ViceCandidateName = "Ambrosio Rubick",
+                    Party = "PSD",
+                    ElectoralNumber = 92 
+                },
+                new Candidate
+                {
+                    Id = 3,
+                    FullName = "Ambrosio Rubick ",
+                    ViceCandidateName = "	José Adálcio Krieger",
+                    Party = "MDB",
+                    ElectoralNumber = 93
+                }
+            );
         }
 
     }

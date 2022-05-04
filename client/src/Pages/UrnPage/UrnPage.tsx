@@ -1,21 +1,24 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import ErrorResponse from '../../../ErrorResponse';
-import ICandidate from '../../../Models/Interfaces/ICandidate';
-import CandidateService from '../../../Services/CandidateService';
+import ErrorResponse from '../../ErrorResponse';
+import CandidateService from '../../Services/CandidateService';
 import { toast } from 'react-toastify';
-import UrnHelper from '../Helpers/UrnHelper';
+import UrnHelper from './Helpers/UrnHelper';
+import VoteScreen from './Components/VoteScreen';
+import ICandidate from '../../Models/Interfaces/ICandidate';
 
-import '../Styles/urn.css';
+import './Styles/urn.css';
+import SoundHelper from './Helpers/SoundHelper';
 
 export default function Urn() {
-  const [selectedCandidate, setSelectedCandidate] =
-    useState<ICandidate>();
-  const [showEndScreen, setShowEndScreen] = useState(false);
+  const [selectedCandidate, setSelectedCandidate] = useState<ICandidate>();
 
   const [firstDigit, setFirstDigit] = useState<number>();
   const [secondDigit, setSecondDigit] = useState<number>();
-  const [electoralNumber, setElectoralNumber] = useState<number>();
+  const [electoralNumber, setElectoralNumber] = useState<number>(0);
   const [indexDigit, setIndexDigit] = useState<number>(0);
+  
+  const [isEndScreen, setIsEndScreen] = useState<boolean>(false);
+  const [isVoteNull, setIsVoteNull] = useState<boolean>(false);
 
   const pressDigit = async (pressedDigit: number) => {
     if (indexDigit === 0) {
@@ -30,32 +33,46 @@ export default function Urn() {
   const eraseAll = () => {
     setFirstDigit(undefined);
     setSecondDigit(undefined);
-    setElectoralNumber(undefined);
     setSelectedCandidate(undefined);
+    setIsVoteNull(false);
+    setIsEndScreen(false);
+    setElectoralNumber(0);
     setIndexDigit(0);
   };
 
   const fetchSelectedCandidate = useCallback(async () => {
     const { getCandidateByElectoralNumber } = new CandidateService();
-    const candidate = await getCandidateByElectoralNumber(
-      UrnHelper.ParseDigits(firstDigit, secondDigit)
-    );
+    
+    const candidate = await getCandidateByElectoralNumber(electoralNumber);
 
     if (candidate instanceof ErrorResponse) {
-      return toast.error(candidate.ErrorMessage);
+      setIsVoteNull(true);
+      return;
     }
 
     setSelectedCandidate(candidate as ICandidate);
-  }, [firstDigit, secondDigit]);
+  }, [electoralNumber]);
 
   const submitVote = async () => {
-    const { voteCandidate } = new CandidateService();
+    if (isEndScreen) {
+      eraseAll();
+      return;
+    }
+
+    if (isVoteNull) {
+      eraseAll()
+      setIsEndScreen(true);
+      SoundHelper.PlayVoteSound();
+      return toast.success('Voto nulo registrado!');
+    }
 
     if (!UrnHelper.IsVoteValid(electoralNumber)) {
       return toast.error('Número de eleitor inválido');
     }
 
-    const response = await voteCandidate(electoralNumber as number);
+    const { voteCandidate } = new CandidateService();
+
+    const response = await voteCandidate(electoralNumber);
 
     if (response instanceof ErrorResponse) {
       return toast.error(response.ErrorMessage);
@@ -63,8 +80,24 @@ export default function Urn() {
 
     toast.success('Voto registrado com sucesso!');
     eraseAll();
+    setIsEndScreen(true);
+    SoundHelper.PlayVoteSound();
   };
 
+  const submitWhiteVote = async () => {
+    if (electoralNumber || electoralNumber === 0) {
+      return toast.error(
+        'Para votar branco, o número de votação deve estar vazio.'
+      );
+    }
+
+    toast.success('Voto branco registrado!');
+    eraseAll();
+    setIsEndScreen(true);
+    SoundHelper.PlayVoteSound();
+
+  };
+  
   useEffect(() => {
     setElectoralNumber(UrnHelper.ParseDigits(firstDigit, secondDigit));
     if (UrnHelper.IsVoteValid(electoralNumber)) {
@@ -77,47 +110,18 @@ export default function Urn() {
       <div className='urn'>
         <div className='vote-display'>
           <div className='screen'>
-            <h4 className={selectedCandidate ? ' show' : ' hide'}>
-              SEU VOTO PARA
-            </h4>
-            <h2 className='mayor-title'>PREFEITO(A)</h2>
-            <div className='electoral-number'>
-              <span className='urn-data after-selected'>Número:</span>
-              <div className='slots'>
-                <div className='digit-slot'>
-                  <span>{firstDigit}</span>
-                </div>
-                <div className='digit-slot'>
-                  <span>{secondDigit}</span>
-                </div>
-              </div>
-            </div>
-            <div
-              className={
-                'candidate-data' + (selectedCandidate ? ' show' : ' hide')
-              }
-            >
-              <span>Nome: {selectedCandidate?.fullName}</span>
-            </div>
-            <div
-              className={
-                'candidate-data' + (selectedCandidate ? ' show' : ' hide')
-              }
-            >
-              <span>Vice-Prefeito: {selectedCandidate?.viceCandidateName}</span>
-            </div>
-            <div
-              className={
-                'candidate-data' + (selectedCandidate ? ' show' : ' hide')
-              }
-            >
-              <span>Partido: {selectedCandidate?.party}</span>
-            </div>
+            <VoteScreen
+              firstDigit={firstDigit}
+              secondDigit={secondDigit}
+              selectedCandidate={selectedCandidate}
+              isVoteNull={isVoteNull}
+              isEndScreen={isEndScreen}
+            />
           </div>
         </div>
         <div className='keyboard-area'>
           <div className='keyboard-numbers'>
-            {UrnHelper.NumpadDigits.map((digit) => (
+            {UrnHelper.NumpadDigits.map((digit: number) => (
               <button
                 className='keyboard-digit'
                 key={digit}
@@ -130,7 +134,9 @@ export default function Urn() {
             ))}
           </div>
           <div className='action-btns'>
-            <button className='white-btn'>Branco</button>
+            <button className='white-btn' onClick={submitWhiteVote}>
+              Branco
+            </button>
             <button className='erase-btn' onClick={eraseAll}>
               Corrige
             </button>

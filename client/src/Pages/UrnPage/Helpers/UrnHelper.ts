@@ -18,6 +18,7 @@ export default class UrnHelper {
 			electoralNumber += secondDigit;
 		}
 
+
 		return parseInt(electoralNumber, 10);
 	}
 }

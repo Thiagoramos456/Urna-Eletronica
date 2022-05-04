@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import Header from './Components/Header';
 import DashboardPage from './Pages/DashboardPage/DashboardPage';
 import CandidateRegisterPage from './Pages/CandidateRegisterPage/CandidateRegisterPage';
-import VotationPage from './Pages/VotationPage/VotationPage';
+import UrnPage from './Pages/UrnPage/UrnPage';
 import { ToastContainer } from 'react-toastify';
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
     <div>
       <Header />
       <Routes>
-        <Route path="/" element={<VotationPage />} />
+        <Route path="/" element={<UrnPage />} />
         <Route path="/register" element={<CandidateRegisterPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
       </Routes>

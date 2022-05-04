@@ -5,6 +5,7 @@
 .urn {
 	display:flex;
 	width: fit-content;
+	height: 26rem;
 	box-shadow: 1px 1px 2px gray;
 	background-color: #d4cec2da;
 	margin: 0 auto;
@@ -24,7 +25,7 @@
 	width: 25em;
 	background-color: #E4E4E4;
 	border-radius: 10px;
-
+	height: 19rem;
 }
 
 .electoral-number {
@@ -47,7 +48,7 @@
 }
 
 .hide {
-	visibility: hidden;
+	display:none;
 }
 
 .urn-data {
@@ -109,4 +110,20 @@
 	background-color: #03c450;
 	color:#fefff9;
 
+}
+
+.end-screen {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+
+.end-label {
+	font-size: 2.8rem;
+}
+
+.restart-message {
+	font-size: 1.2rem;
 }
