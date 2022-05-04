@@ -1,19 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import './Styles/header.css';
+
 export default function Header() {
   return (
     <header>
       <nav>
-        <ul>
-          <li>
-            <Link to='/'>Votar</Link>
+        <ul className="nav-menu">
+          <li className="nav-item">
+            <Link to='/' className="nav-text">Votar</Link>
           </li>
-          <li>
-            <Link to='/register'>Gerenciar Prefeitos</Link>
+          <li className="nav-item">
+            <Link to='/register' className="nav-text">Candidatos</Link>
           </li>
-          <li>
-            <Link to='/dashboard'>Dados</Link>
+          <li className="nav-item">
+            <Link to='/dashboard' className="nav-text">Resultados</Link>
           </li>
         </ul>
       </nav>

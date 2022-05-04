@@ -85,6 +85,11 @@ export default function Urn() {
   };
 
   const submitWhiteVote = async () => {
+    if (isEndScreen) {
+      eraseAll();
+      return;
+    }
+    
     if (electoralNumber || electoralNumber === 0) {
       return toast.error(
         'Para votar branco, o número de votação deve estar vazio.'

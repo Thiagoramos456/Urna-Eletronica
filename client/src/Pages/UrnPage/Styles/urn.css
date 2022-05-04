@@ -12,6 +12,7 @@
 	font-size: 1.5rem;
 	border-radius: 10px;
 	overflow: hidden;
+	margin: 4rem auto;
 }
 
 .vote-display {
@@ -31,6 +32,13 @@
 .electoral-number {
 	display:flex;
 	align-items: center;
+	justify-content: center;
+	margin-bottom: 2rem;
+}
+
+.mayor-title {
+	margin: 1.3rem 0;
+	text-align: center;
 }
 
 .slots {
@@ -51,8 +59,9 @@
 	display:none;
 }
 
-.urn-data {
+.candidate-data {
 	margin: 0.7rem 0.5rem;
+
 }
 
 .mayor-title {

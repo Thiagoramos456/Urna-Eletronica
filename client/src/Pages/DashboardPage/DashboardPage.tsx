@@ -2,6 +2,16 @@ import React, { useCallback, useEffect } from 'react';
 import ErrorResponse from '../../ErrorResponse';
 import ICandidate from '../../Models/Interfaces/ICandidate';
 import CandidateService from '../../Services/CandidateService';
+import { Chart as ChartJS, registerables } from 'chart.js';
+import CandidateResultsTable from './Components/CandidateResultsTable';
+import CandidateResultsBarChart from './Components/CandidateResultsBarChart';
+import CandidateResultsPieChart from './Components/CandidateResultsPieChart';
+import { Link } from 'react-router-dom';
+
+import './Styles/dashboard.css';
+import '../../Styles/candidate_list.css';
+
+ChartJS.register(...registerables);
 
 export default function DashboardPage() {
   const [allCandidates, setAllCandidates] = React.useState<ICandidate[]>([]);
@@ -25,15 +35,26 @@ export default function DashboardPage() {
 
   return (
     <main>
-      <ul>
-        {allCandidates.map((candidate: ICandidate) => {
-          return (
-            <li key={candidate.id}>
-              <span>{`${candidate.fullName} - Nº ${candidate.electoralNumber}. Votos: ${candidate.voteCount}`}</span>
-            </li>
-          );
-        })}
-      </ul>
+      {allCandidates && allCandidates.length ? (
+        <>
+          <h2 className='dashboard-title'>Resultados das eleições</h2>
+          <div className='dashboard-area'>
+            <div className='charts-area'>
+              <CandidateResultsPieChart
+                allCandidates={[...allCandidates.slice(0, 3)]}
+              />
+              <CandidateResultsBarChart allCandidates={allCandidates} />
+            </div>
+            <h3 className='table-title'>Todos os candidatos</h3>
+            <CandidateResultsTable allCandidates={allCandidates} />
+          </div>
+        </>
+      ) : (
+        <>
+          <h2 className='dashboard-title'>Não há candidatos cadastrados.</h2>
+          <h3 className='dashboard-title'><Link to="/register">Crie um na página de cadastro</Link></h3>
+        </>
+      )}
     </main>
   );
 }

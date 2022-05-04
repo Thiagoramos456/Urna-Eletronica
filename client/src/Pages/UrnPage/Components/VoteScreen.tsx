@@ -17,7 +17,7 @@ export default function VoteScreen({
         </div>
       ) : (
         <>
-          <h4>
+          <h4 className={selectedCandidate ? ' show' : ' hide'}>
             SEU VOTO PARA
           </h4>
           <h2 className='mayor-title'>PREFEITO(A)</h2>

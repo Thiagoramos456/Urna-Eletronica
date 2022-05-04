@@ -26,6 +26,7 @@ export default function CandidateRegisterPage() {
   return (
     <main>
       <CandidateRegisterForm refreshCandidateList={refreshCandidateList} />
+      <hr />
       <CandidateList refreshCandidateList={refreshCandidateList} allCandidates={ allCandidates } />
     </main>
   );

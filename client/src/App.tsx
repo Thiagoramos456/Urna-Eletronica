@@ -1,11 +1,13 @@
 import React from 'react';
-import 'react-toastify/dist/ReactToastify.css';
 import { Route, Routes } from 'react-router-dom';
 import Header from './Components/Header';
 import DashboardPage from './Pages/DashboardPage/DashboardPage';
 import CandidateRegisterPage from './Pages/CandidateRegisterPage/CandidateRegisterPage';
 import UrnPage from './Pages/UrnPage/UrnPage';
 import { ToastContainer } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
+import './App.css';
 
 function App() {
   return (
